@@ -1,0 +1,58 @@
+{% extends 'recommender/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">Crop Recommendation Results</h3>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-center mb-4">Recommended Crop: <strong>{{ prediction }}</strong></h4>
+                    
+                    {% if crop_details %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Crop Information</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item">Season: {{ crop_details.season }}</li>
+                                <li class="list-group-item">Market Demand: {{ crop_details.market_demand }}</li>
+                                <li class="list-group-item">Temperature Range: {{ crop_details.temperature_range }}</li>
+                                <li class="list-group-item">Rainfall Range: {{ crop_details.rainfall_range }}</li>
+                                <li class="list-group-item">Ideal Soil pH: {{ crop_details.ideal_soil_ph }}</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Your Soil Parameters</h5>
+                            <ul class="list-group">
+                                <li class="list-group-item">Nitrogen: {{ soil_data.nitrogen }} mg/kg</li>
+                                <li class="list-group-item">Phosphorus: {{ soil_data.phosphorus }} mg/kg</li>
+                                <li class="list-group-item">Potassium: {{ soil_data.potassium }} mg/kg</li>
+                                <li class="list-group-item">pH Level: {{ soil_data.ph }}</li>
+                                <li class="list-group-item">Rainfall: {{ soil_data.rainfall }} mm</li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <h5>Next Steps</h5>
+                        <ol>
+                            <li>Review the recommended crop details</li>
+                            <li>Check current market prices</li>
+                            <li>Consider seasonal timing</li>
+                            <li>Consult with local agricultural experts</li>
+                        </ol>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{% url 'predict' %}" class="btn btn-primary me-2">Try Another Prediction</a>
+                        <a href="{% url 'market' %}" class="btn btn-success">View Market Analysis</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'recommender/base.html' %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4">Smart Crop Recommendations</h1>
+                <p class="lead">Make informed decisions about your crops using advanced machine learning technology</p>
+                <a href="{% url 'predict' %}" class="btn btn-success btn-lg">Get Started</a>
+            </div>
+            <div class="col-md-6">
+                <img src="https://th.bing.com/th/id/OIP.WlU-e6UVQJfGf5enO5WZywHaE8?rs=1&pid=ImgDetMain" alt="Farming in Pakistan" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container mt-5">
+    <h2 class="text-center mb-4">How It Works</h2>
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 border-dark shadow-lg">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="fas fa-seedling fa-2x text-success"></i>
+                    </div>
+                    <h3 class="h5">Input Soil Data</h3>
+                    <p>Enter your soil parameters including N, P, K values, pH level, and local weather conditions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 border-dark shadow-lg">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="fas fa-brain fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">AI Analysis</h3>
+                    <p>Our advanced machine learning model analyzes your data to recommend the best crops.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card feature-card h-100 border-dark shadow-lg">
+                <div class="card-body text-center">
+                    <div class="icon mb-3">
+                        <i class="fas fa-chart-line fa-2x text-info"></i>
+                    </div>
+                    <h3 class="h5">Market Insights</h3>
+                    <p>Get current market demand information to make profitable decisions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container mt-5">
+    <h2 class="text-center mb-4">Why Choose Us?</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item">✓ Pakistan-specific crop recommendations</li>
+                <li class="list-group-item">✓ Based on local weather patterns</li>
+                <li class="list-group-item">✓ Consider market demand</li>
+                <li class="list-group-item">✓ Easy to use interface</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Get Started Now</h5>
+                    <p class="card-text">Input your soil parameters and get instant crop recommendations tailored for Pakistani agriculture.</p>
+                    <a href="{% url 'predict' %}" class="btn btn-primary">Start Analysis</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'recommender/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Market Analysis</h2>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h3 class="card-title mb-0">Current Market Demand</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Crop</th>
+                                    <th>Season</th>
+                                    <th>Market Demand</th>
+                                    <th>Temperature Range</th>
+                                    <th>Rainfall Range</th>
+                                    <th>Ideal pH</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for crop in crops %}
+                                <tr>
+                                    <td>{{ crop.name }}</td>
+                                    <td>{{ crop.season }}</td>
+                                    <td>
+                                        <span class="badge {% if crop.market_demand == 'High' %}bg-success{% elif crop.market_demand == 'Medium' %}bg-warning{% else %}bg-danger{% endif %}">
+                                            {{ crop.market_demand }}
+                                        </span>
+                                    </td>
+                                    <td>{{ crop.min_temperature }}°C - {{ crop.max_temperature }}°C</td>
+                                    <td>{{ crop.min_rainfall }}mm - {{ crop.max_rainfall }}mm</td>
+                                    <td>{{ crop.ideal_soil_ph }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Market Trends</h5>
+                </div>
+                <div class="card-body">
+                    <h6>High Demand Crops</h6>
+                    <ul class="list-group">
+                        {% for crop in crops %}
+                            {% if crop.market_demand == 'High' %}
+                                <li class="list-group-item">{{ crop.name }} ({{ crop.season }})</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Seasonal Recommendations</h5>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="seasonAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRabi">
+                                    Rabi Season
+                                </button>
+                            </h2>
+                            <div id="collapseRabi" class="accordion-collapse collapse show">
+                                <div class="accordion-body">
+                                    <ul class="list-unstyled">
+                                        {% for crop in crops %}
+                                            {% if crop.season == 'Rabi' %}
+                                                <li>{{ crop.name }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKharif">
+                                    Kharif Season
+                                </button>
+                            </h2>
+                            <div id="collapseKharif" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <ul class="list-unstyled">
+                                        {% for crop in crops %}
+                                            {% if crop.season == 'Kharif' %}
+                                                <li>{{ crop.name }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
