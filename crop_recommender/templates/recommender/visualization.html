@@ -1,0 +1,75 @@
+{% extends 'recommender/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Model Visualization</h2>
+            
+            <div class="text-center mb-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Show Decision Tree Visualization
+                    </button>
+                </form>
+            </div>
+
+            {% if show_visualization %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Understanding the Decision Tree</h5>
+                        <p>This visualization shows how our model makes crop recommendations based on various soil and environmental parameters:</p>
+                        <ul>
+                            <li><strong>Decision Nodes (Colored):</strong> Show the conditions used to make decisions</li>
+                            <li><strong>Leaf Nodes (End Nodes):</strong> Show the final crop predictions</li>
+                            <li><strong>Node Information:</strong>
+                                <ul>
+                                    <li>Decision criteria (e.g., "Is N ≤ 50.2?")</li>
+                                    <li>Total samples that reach this node</li>
+                                    <li>Distribution of crops in the samples</li>
+                                </ul>
+                            </li>
+                            <li><strong>Parameters:</strong>
+                                <ul>
+                                    <li>N: Nitrogen content in soil</li>
+                                    <li>P: Phosphorus content in soil</li>
+                                    <li>K: Potassium content in soil</li>
+                                    <li>temperature: Temperature in Celsius</li>
+                                    <li>humidity: Relative humidity percentage</li>
+                                    <li>ph: Soil pH level</li>
+                                    <li>rainfall: Annual rainfall in mm</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        {% if visualization_success %}
+                            <div class="text-center">
+                                <img src="{% static 'recommender/images/decision_tree.png' %}" alt="Decision Tree Visualization" class="img-fluid">
+                            </div>
+                            <div class="mt-4">
+                                <h5>How to Read the Tree:</h5>
+                                <ol>
+                                    <li>Start at the top node (root)</li>
+                                    <li>At each decision node, follow the path based on whether the condition is true (≤) or false (>)</li>
+                                    <li>The color intensity shows the majority crop prediction at each node</li>
+                                    <li>Leaf nodes show the final crop prediction and the number of training samples that led to this decision</li>
+                                </ol>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-warning">
+                                Unable to generate visualization at this time. Please try again later.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

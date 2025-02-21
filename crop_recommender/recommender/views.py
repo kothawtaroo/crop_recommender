@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 import joblib
 import os
+from .visualization import generate_tree_visualization
 
 def load_model():
     model_path = 'recommender/ml_model/crop_model.joblib'
@@ -81,6 +82,19 @@ def get_recommendation_by_rules(nitrogen, phosphorus, potassium, temperature, hu
         return "Wheat"
     else:
         return "Maize"
+
+def visualization(request):
+    context = {
+        'show_visualization': False,
+        'visualization_success': False
+    }
+    
+    if request.method == 'POST':
+        context['show_visualization'] = True
+        # Generate the visualization
+        context['visualization_success'] = generate_tree_visualization()
+    
+    return render(request, 'recommender/visualization.html', context)
 
 def market_analysis(request):
     crops = CropInfo.objects.all()
